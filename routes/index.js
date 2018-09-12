@@ -5,10 +5,12 @@ module.exports = {
 
 	get: function (req, res, next) {
 		var resource = req.params.resource,
-			token = req.header.Authentication,
+			token = req.headers.authorization,
 			itemArg = req.params[0] || req.query.id || null,
 			items;
-		if (token !== `bearer ${config.token}`) {
+		console.log(token)
+		console.log(`beareer ${config.token}`)
+		if (token !== `beareer ${config.token}`) {
 			return res.status(401).send({
 				error: "Unauthorized"
 			});
