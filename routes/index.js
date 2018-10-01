@@ -29,10 +29,11 @@ module.exports = {
 
 	post: function (req, res, next) {
 		var id = req.body.id || (Math.ceil(Math.random() * 1000)).toString().substring(0, 3),
+			token = req.headers.authorization,
 			returnData = req.body;
 		returnData.id = id;
 		returnData.createdAt = new Date().toISOString();
-		if (token !== config.token) {
+		if (token !== `beareer ${config.token}`) {
 			return res.status(401).send({
 				error: "Unauthorized"
 			});
@@ -41,10 +42,11 @@ module.exports = {
 	},
 
 	put: function (req, res, next) {
-		var returnData = req.body;
+		var returnData = req.body,
+			token = req.headers.authorization;
 		returnData.updatedAt = new Date().toISOString();
 
-		if (token !== config.token) {
+		if (token !== `beareer ${config.token}`) {
 			return res.status(401).send({
 				error: "Unauthorized"
 			});
@@ -53,10 +55,11 @@ module.exports = {
 	},
 
 	patch: function (req, res, next) {
-		var returnData = req.body;
+		var returnData = req.body,
+			token = req.headers.authorization;
 		returnData.updatedAt = new Date().toISOString();
 
-		if (token !== config.token) {
+		if (token !== `beareer ${config.token}`) {
 			return res.status(401).send({
 				error: "Unauthorized"
 			});
@@ -65,7 +68,8 @@ module.exports = {
 	},
 
 	delete: function (req, res, next) {
-		if (token !== config.token) {
+		var token = req.headers.authorization;
+		if (token !== `beareer ${config.token}`) {
 			return res.status(401).send({
 				error: "Unauthorized"
 			});
